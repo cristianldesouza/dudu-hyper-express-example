@@ -27,10 +27,6 @@ class Socket {
 	message(skt, msg) {
 		connections[skt]?.send(JSON.stringify({ message: msg }));
 	}
-
-	jsonMessage(skt, msg) {
-		connections[skt]?.send(JSON.stringify(msg));
-	}
 }
 
 module.exports = new Socket();

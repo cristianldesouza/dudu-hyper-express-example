@@ -54,6 +54,8 @@ app.use((req, res, next) => {
 });
 
 app.get('/', Example.index);
+app.get('/socket/', Example.socketExample);
+app.post('/api/socket/execute/', Example.socketExecution);
 
 // Handle WebSocket connections
 app.ws('/connect/', (connection) => {

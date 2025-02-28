@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>EXEMPLO SOCKET</title>
+    </head>
+    <body>
+        <div class="form-group col-md-12">
+            <div id="log-container" class="mb-4" style="overflow-y: scroll; height: 400px; max-height: 400px; background-color: black;"></div>
+        </div>
+        <div class="form-group col-md-12">
+            <button
+                style="width:100%"
+                id="execute-action"
+                type="button"
+                class="btn btn-success"
+            >EXECUTAR AÇÃO</button>
+        </div>
+        <script>
+        let skt = false;
+        let conectionStarted = false;
+    
+        $('#execute-action').on('click', () => {
+            if (!conectionStarted) {
+                conectionStarted = true;
+    
+                $.ajax({
+                    url: '/api/socket/execute/',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        skt: skt,
+                    }),
+                    success: (data) => {
+                        console.log('started');
+                        return false;
+                    },
+                });
+            }
+        });
+    
+        let logsContainer = $('#log-container');
+        let liveLogs = [];
+    
+        log = (content) => {
+            let date = new Date();
+    
+            let now = {
+                day: date.getDate(),
+                month: date.getMonth() + 1,
+                year: date.getFullYear(),
+                hour: date.getHours(),
+                minutes: date.getMinutes(),
+                seconds: date.getSeconds(),
+            };
+    
+            for (let attr in now) {
+                if (now[attr] < 10) {
+                    now[attr] = '0' + now[attr];
+                }
+            }
+    
+            let thisDate = `${now.day}/${now.month}/${now.year} ${now.hour}:${now.minutes}:${now.seconds}`;
+    
+            liveLogs.unshift(`<p style="color: white;">[${thisDate}] ${content}<p>`);
+            logsContainer.html(liveLogs.join(''));
+        };
+    
+        let socket = new WebSocket(
+            (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + `/connect/`
+        );
+    
+        // Connection opened
+        socket.addEventListener('open', function (event) {
+            socket.send('Hello Server!');
+        });
+    
+        // Listen for messages
+        socket.addEventListener('message', function (event) {
+            let data = JSON.parse(event.data);
+    
+            log(data.message);
+    
+            if (data.skt) {
+                skt = data.skt;
+            }
+        });
+    
+        // Connection closed
+        socket.addEventListener('close', function (event) {
+            console.log('Server connection closed: ', event.code);
+        });
+    
+        // Connection error
+        socket.addEventListener('error', function (event) {
+            console.log('Server connection error: ', event);
+        });
+        </script>
+    </body>
+</html>
