@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/public/js/dropzone.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/basic.min.css"
+            integrity="sha512-MeagJSJBgWB9n+Sggsr/vKMRFJWs+OUphiDV7TJiYu+TNQD9RtVJaPDYP8hA/PAjwRnkdvU+NsTncYTKlltgiw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        >
+        <title>EXEMPLO DROPZONE</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row mb-4 p-3">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <div class="input-group">
+                        <form action="#URL DE UPLOAD#" class="dropzone dropzoneUploadForm" id="dropzoneUploadForm">
+                            <div class="dz-message" data-dz-message>
+                                <span>Suba aqui os criativos</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+    </body>
+    <script>
+        let uploadForm = document.getElementById('dropzoneUploadForm');
+
+        //Dropzone.autoDiscover = false;
+
+        // new Dropzone(uploadForm, {
+        //     acceptedFiles: 'video/*',
+        //     parallelUploads: 10,
+        //     success: function (file, response) {
+        //         console.log('Server response:', response);
+        //         let fileUrl = response;
+        //     },
+        // });
+    </script>
+</html>

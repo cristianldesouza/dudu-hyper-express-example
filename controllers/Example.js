@@ -100,6 +100,11 @@ class Example {
 			await sleep(250);
 		}
 	}
+
+	async dropzoneExample(request, response) {
+		response.setHeader('Content-Type', 'text/html; charset=utf-8');
+		return response.send(Template.get('dropzone-example.html'));
+	}
 }
 
 module.exports = new Example();

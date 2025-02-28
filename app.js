@@ -54,8 +54,13 @@ app.use((req, res, next) => {
 });
 
 app.get('/', Example.index);
+
+//socket
 app.get('/socket/', Example.socketExample);
 app.post('/api/socket/execute/', Example.socketExecution);
+
+//dropzone
+app.get('/dropzone/', Example.dropzoneExample);
 
 // Handle WebSocket connections
 app.ws('/connect/', (connection) => {
