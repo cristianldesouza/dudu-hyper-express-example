@@ -1,0 +1,15 @@
+{
+	"name": "dudu-hyper",
+	"version": "1.0.0",
+	"main": "app.js",
+	"license": "MIT",
+	"dependencies": {
+		"hyper-express": "^6.14.12",
+		"live-directory": "^3.0.3",
+		"moment-timezone": "^0.5.45",
+		"zlib": "^1.0.5"
+	},
+	"scripts": {
+		"dev": "nodemon app.js --dev"
+	}
+}
